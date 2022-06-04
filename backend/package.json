@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "the backend server for electricity seller project",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start":"nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gahamanyi-dev/electricity-seller.git"
+  },
+  "author": "Gahamanyi and Pauline",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gahamanyi-dev/electricity-seller/issues"
+  },
+  "homepage": "https://github.com/Gahamanyi-dev/electricity-seller#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  }
+}
