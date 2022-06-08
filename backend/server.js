@@ -3,6 +3,28 @@ import cors from "cors";
 import './src/config/dbConfig.js';
 import meterRoutes from './src/routers/meterRoutes.js';
 
+import swaggerJSDoc from 'swagger-jsdoc';
+import SwaggerUiOptions from 'swagger-ui-express';
+
+const option={
+    swaggerDefinition: {
+      openapi: '3.0.0',
+      info: {
+        title: 'Electricity seller API',
+        version: '1.0.0',
+        description: 'API documentation for Electricity seller',
+      },
+      servers: [
+        {
+          url: 'http://localhost:4000/api/v1',
+          description: 'Local server',
+        },
+      ],
+    },
+    apis: ['./src/routers/*.js'],
+}
+
+
 const app = express();
 app.use(cors());
 
@@ -14,6 +36,9 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api/v1',meterRoutes);
+
+const specs = swaggerJSDoc(option);
+app.use("/api-docs", SwaggerUiOptions.serve, SwaggerUiOptions.setup(specs));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
