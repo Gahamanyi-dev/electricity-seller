@@ -10,7 +10,7 @@ const meterController = {
         res
           .send({
             success: true,
-            message: "meter added successfully",
+            message: "meter added successful",
             data: meterSaved,
           })
           .status(201)
@@ -26,16 +26,32 @@ const meterController = {
     await Meter.find()
       .then((allMeters) =>
         res
-          .send(allMeters)
+          .send({
+            success: true,
+            message: 'Get all meters successful',
+            data: allMeters
+          })
           .status(201)
       )
-      .catch((err) => res.send(err).status(400));
+      .catch((err) => res.send({
+        success: false,
+        message: 'Failed to get all meters',
+        data: null
+      }).status(400));
   },
 
   async readMeter(req, res) {
     await Meter.findById(req.params.id)
-      .then((meter) => res.send(meter).status(201))
-      .catch((err) => res.send(err).status(400));
+      .then((meter) => res.send({
+        success: true,
+        message: 'Get meter successful',
+        data: meter
+      }).status(201))
+      .catch((err) => res.send({
+        success: false,
+        message: 'Get meter Failed',
+        data: null
+      }).status(400));
   },
 
   async updateMeter(req, res) {
@@ -43,14 +59,30 @@ const meterController = {
     await Meter.findByIdAndUpdate({ _id: req.params.id }, req.body, {
       new: true,
     })
-      .then((updatedMeter) => res.send(updatedMeter).status(201))
-      .catch((err) => res.send(err).status(400));
+      .then((updatedMeter) => res.send({
+        success: true,
+        message: 'Update meter successful',
+        data: updatedMeter
+      }).status(201))
+      .catch((err) => res.send({
+        success: false,
+        message: 'Update meter failed',
+        data: null
+      }).status(400));
   },
 
   async deleteMeter(req, res) {
     await Meter.findOneAndRemove(req.params.id)
-      .then((deletedMeter) => res.send(deletedMeter).status(201))
-      .catch((err) => res.send(err).status(400));
+      .then((deletedMeter) => res.send({
+        success: true,
+        message: 'Delete meter successfull',
+        data: deletedMeter
+      }).status(201))
+      .catch((err) => res.send({
+        success: false,
+        message: 'Delete meter failed',
+        data: null
+      }).status(400));
   },
 };
 export default meterController;
