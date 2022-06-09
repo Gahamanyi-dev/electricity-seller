@@ -1,24 +1,21 @@
 import mongoose from "mongoose";
-import { paginate } from "mongoose-paginate-v2";
+import pagination from "mongoose-paginate-v2";
 
-const tokenSchema= new mongoose.Schema({
-    // id , token number,status, days-to-last
-    // id        Int     @id @default(autoincrement())
-    // token     String  @unique
-    // meter     String 
-    // amount    Int 
-    // status    Boolean
+const tokenSchema = new mongoose.Schema({
+  tokenNumber: {
+    type: String,
+  },
+  status: {
+    type: String,
+  },
+  expiresAt: {
+    type: Date,
+  }
+},{
+    timestamps: true
+});
 
-tokenNumber:{
-    type:String,
-    
-},
-status:{
-    type:String
-},
-dayLast:{
-    type:Number
-}
+tokenSchema.plugin(pagination);
+const Meter = mongoose.model("Token",tokenSchema);
 
-
-})
+export default Meter

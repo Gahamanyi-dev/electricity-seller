@@ -1,7 +1,8 @@
-import express, { json, urlencoded } from 'express';
+import express, { json, Router, urlencoded } from 'express';
 import cors from "cors";
 import './src/config/dbConfig.js';
 import meterRoutes from './src/routers/meterRoutes.js';
+import tokenRouters from './src/routers/tokenRouters.js';
 
 import swaggerJSDoc from 'swagger-jsdoc';
 import SwaggerUiOptions from 'swagger-ui-express';
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api/v1',meterRoutes);
+app.use('/api/v1',tokenRouters);
 
 const specs = swaggerJSDoc(option);
 app.use("/api-docs", SwaggerUiOptions.serve, SwaggerUiOptions.setup(specs));
