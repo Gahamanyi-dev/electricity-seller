@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.Image-background{
+  background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg");
+  height: 100% !important;
+  width: 100% !important;
+  /* background-color: blue; */
+}
+
+.shadow{
+  background-color: white;
+  -webkit-box-shadow: 2px 0px 8px -1px rgba(0,0,0,0.26);
+  -moz-box-shadow: 2px 0px 8px -1px rgba(0,0,0,0.26);
+  box-shadow: 2px 0px 8px -1px rgba(0,0,0,0.26);
+}
+.pointer {cursor: pointer}
