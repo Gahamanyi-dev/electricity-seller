@@ -92,7 +92,7 @@ meterRoutes.post('/meters',(req, res)=>{
 meterRoutes.put('/meters/:id',(req, res)=>{
     meterController.updateMeter(req, res);
 })
-
+ 
 /**
  * @swagger
  * /meters:
