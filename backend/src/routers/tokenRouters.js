@@ -1,24 +1,42 @@
 import tokenController from '../controllers/tokenController.js'
 import { Router } from "express";
 
-const meterRoutes = Router();
+const tokenRoutes = Router();
 
-meterRoutes.post('/tokens',(req, res)=>{
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Token:
+ *       type: object
+ *       required:
+ *         - meternumber
+ *         - money
+ *       properties:
+ *         meterNumber:
+ *           type: string
+ *           description: The meter number
+ *       example:
+ *         meterNumber: string
+ */
+
+tokenRoutes.post('/tokens',(req, res)=>{
     tokenController.createToken(req, res);
 })
 
-meterRoutes.put('/meters/:id',(req, res)=>{
+tokenRoutes.put('/tokens/:id',(req, res)=>{
     tokenController.updateToken(req, res);
 })
 
-meterRoutes.delete('/meters/:id',(req, res)=>{
+tokenRoutes.delete('/tokens/:id',(req, res)=>{
     tokenController.deleteToken(req, res);
 })
 
-meterRoutes.get('/meters/:id',(req, res)=>{
+tokenRoutes.get('/tokens/:id',(req, res)=>{
     tokenController.readTokenById(req, res);
 })
 
-meterRoutes.get('/tokens', tokenController.getall);
+tokenRoutes.get('/tokens', tokenController.getall);
 
-export default meterRoutes;
+export default tokenRoutes;

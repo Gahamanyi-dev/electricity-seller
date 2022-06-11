@@ -1,4 +1,5 @@
 import Token from "../models/token.model.js";
+import Meter from "../models/meters.model.js";
 import Joi from "joi";
 import generateRandomToken from '../utils/generateToken.js';
 import moment from "moment";
@@ -10,11 +11,14 @@ const myCustomValidation = (value, helpers) => {
       // your logic above
       return value
     } else return helpers.error('number must be multiple of 100')
+
+    
   }
 
   
 function validate(req){
     const schema = Joi.object({
+      meterNumber: Joi.string().required().max(10),
         amount:Joi.number().custom(myCustomValidation,"custom validation for multiple of 100")
     })
     return schema.validate(req)
@@ -22,6 +26,8 @@ function validate(req){
 
 const tokenController = {
   async createToken(req, res) {
+   
+
       const {error} = validate(req.body);
       if (error) {
           return res.send({
@@ -30,6 +36,13 @@ const tokenController = {
               data:null
           })
       }
+      let meter=Meter.findOne({meterNumber: req.body.meterNumber})
+      if(!meter) return res.send({
+        success:false,
+        message:"this meter doesn't exist  first register it",
+
+      })
+
       let token  = await Token.findOne({tokenNumber:req.body.tokenNumber})
       if(token) return res.send({
           success:false,
@@ -38,6 +51,7 @@ const tokenController = {
       })
       else{
           token = new Token()
+          token.meterNumber=req.body.meterNumber
           token.tokenNumber = generateRandomToken();
           token.status = "VALID";
           token.expiresAt = moment().add((req.body.amount/100), 'days').format();
