@@ -36,27 +36,29 @@ const tokenController = {
               data:null
           })
       }
-      let meter=Meter.findOne({meterNumber: req.body.meterNumber})
-      if(!meter) return res.send({
+      let meter= await Meter.findOne({meterNumber: req.body.meterNumber})
+     
+      if(!meter){ return res.send({
         success:false,
         message:"this meter doesn't exist  first register it",
-
       })
-
-      let token  = await Token.findOne({tokenNumber:req.body.tokenNumber})
-      if(token) return res.send({
-          success:false,
-          message:'token already exist',
-          data: null
-      })
-      else{
-          token = new Token()
-          token.meterNumber=req.body.meterNumber
-          token.tokenNumber = generateRandomToken();
-          token.status = "VALID";
-          token.expiresAt = moment().add((req.body.amount/100), 'days').format();
-
+    }
+      // let token  = await Token.findOne({tokenNumber:req.body.tokenNumber})
+      // if(token) return res.send({
+      //     success:false,
+      //     message:'token already exist',
+      //     data: null
+      // })
+     
+         let token = await new Token({
+         meterNumber:req.body.meterNumber,
+          tokenNumber : generateRandomToken(),
+          status :"VALID",
+          expiresAt : moment().add((req.body.amount/100), 'days').format()
+         })
+         
           token.save()
+
           .then((token) =>
             res.send({
               success: true,
@@ -69,7 +71,7 @@ const tokenController = {
               message:"something went wrong",
               data:null
           }));
-      }
+      
   },
 
   async getall(req, res) {
