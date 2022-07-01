@@ -2,6 +2,7 @@
 
 import meterController from '../controllers/metersController.js'
 import { Router } from "express";
+import authMiddleware from "../middlewares/auth.js";
 
 const meterRoutes = Router();
 
@@ -97,6 +98,8 @@ meterRoutes.put('/meters/:id',(req, res)=>{
  * @swagger
  * /meters:
  *  get:
+ *    security: 
+ *         - Bearer: []
  *    summary: get all meters
  *    tags: [Meters]
  *    responses:
@@ -109,7 +112,7 @@ meterRoutes.put('/meters/:id',(req, res)=>{
  *              items:
  *              $ref: '#/components/schemas/Meter'
  */
-meterRoutes.get('/meters', meterController.readMeters);
+meterRoutes.get('/meters',authMiddleware.verifyToken, meterController.readMeters);
 
 /**
  * @swagger

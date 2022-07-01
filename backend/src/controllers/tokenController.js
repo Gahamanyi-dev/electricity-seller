@@ -7,9 +7,8 @@ const myCustomValidation = (value, helpers) => {
     if (typeof value !== 'number') return helpers.error('any.invalid')
     
     if (value % 100 === 0) {
-      // your logic above
       return value
-    } else return helpers.error('number must be multiple of 100')
+    } else return helpers.error('any.invalid')
   }
 
   

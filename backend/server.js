@@ -2,6 +2,8 @@ import express, { json, Router, urlencoded } from 'express';
 import cors from "cors";
 import './src/config/dbConfig.js';
 import meterRoutes from './src/routers/meterRoutes.js';
+import userRoutes from './src/routers/userRouters.js';
+import authRoutes from './src/routers/authRouters.js';
 import tokenRouters from './src/routers/tokenRouters.js';
 
 import swaggerJSDoc from 'swagger-jsdoc';
@@ -15,6 +17,19 @@ const option={
         version: '1.0.0',
         description: 'API documentation for Electricity seller',
       },
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            in: 'header',
+            bearerFormat: 'JWT',
+          }
+        }
+      },
+      security: [{
+        bearerAuth: []
+      }],
       servers: [
         {
           url: 'http://localhost:4000/api/v1',
@@ -22,6 +37,7 @@ const option={
         },
       ],
     },
+    
     apis: ['./src/routers/*.js'],
 }
 
@@ -38,6 +54,8 @@ app.get("/", (req, res) => {
 
 app.use('/api/v1',meterRoutes);
 app.use('/api/v1',tokenRouters);
+app.use('/api/v1',userRoutes);
+app.use('/api/v1',authRoutes);
 
 const specs = swaggerJSDoc(option);
 app.use("/api-docs", SwaggerUiOptions.serve, SwaggerUiOptions.setup(specs));
