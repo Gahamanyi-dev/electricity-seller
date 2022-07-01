@@ -2,6 +2,13 @@ import mongoose from "mongoose";
 import pagination from "mongoose-paginate-v2";
 
 const tokenSchema = new mongoose.Schema({
+
+  meterNumber:{
+    type:String,
+    ref:'Meter',
+    required:true,
+  },
+
   tokenNumber: {
     type: String,
   },

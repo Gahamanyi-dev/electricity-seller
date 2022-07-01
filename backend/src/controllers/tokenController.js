@@ -1,4 +1,5 @@
 import Token from "../models/token.model.js";
+import Meter from "../models/meters.model.js";
 import Joi from "joi";
 import generateRandomToken from '../utils/generateToken.js';
 import moment from "moment";
@@ -14,6 +15,7 @@ const myCustomValidation = (value, helpers) => {
   
 function validate(req){
     const schema = Joi.object({
+      meterNumber: Joi.string().required().max(10),
         amount:Joi.number().custom(myCustomValidation,"custom validation for multiple of 100")
     })
     return schema.validate(req)
@@ -21,6 +23,8 @@ function validate(req){
 
 const tokenController = {
   async createToken(req, res) {
+   
+
       const {error} = validate(req.body);
       if (error) {
           return res.send({
@@ -29,19 +33,29 @@ const tokenController = {
               data:null
           })
       }
-      let token  = await Token.findOne({tokenNumber:req.body.tokenNumber})
-      if(token) return res.send({
-          success:false,
-          message:'token already exist',
-          data: null
+      let meter= await Meter.findOne({meterNumber: req.body.meterNumber})
+     
+      if(!meter){ return res.send({
+        success:false,
+        message:"this meter doesn't exist  first register it",
       })
-      else{
-          token = new Token()
-          token.tokenNumber = generateRandomToken();
-          token.status = "VALID";
-          token.expiresAt = moment().add((req.body.amount/100), 'days').format();
-
+    }
+      // let token  = await Token.findOne({tokenNumber:req.body.tokenNumber})
+      // if(token) return res.send({
+      //     success:false,
+      //     message:'token already exist',
+      //     data: null
+      // })
+     
+         let token = await new Token({
+         meterNumber:req.body.meterNumber,
+          tokenNumber : generateRandomToken(),
+          status :"VALID",
+          expiresAt : moment().add((req.body.amount/100), 'days').format()
+         })
+         
           token.save()
+
           .then((token) =>
             res.send({
               success: true,
@@ -54,7 +68,7 @@ const tokenController = {
               message:"something went wrong",
               data:null
           }));
-      }
+      
   },
 
   async getall(req, res) {
