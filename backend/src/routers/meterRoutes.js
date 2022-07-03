@@ -98,8 +98,6 @@ meterRoutes.put('/meters/:id',(req, res)=>{
  * @swagger
  * /meters:
  *  get:
- *    security: 
- *         - Bearer: []
  *    summary: get all meters
  *    tags: [Meters]
  *    responses:

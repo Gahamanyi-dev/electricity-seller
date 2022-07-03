@@ -7,7 +7,7 @@ function validate(req){
         first_name: Joi.string().required(),
         last_name: Joi.string().required(),
         email:Joi.string().email().required(),
-        password:Joi.string().regex(/^[a-zA-Z0-9]{10,30}$/).required()
+        password:Joi.string().regex(/^[a-zA-Z0-9]{8,30}$/).required()
     })
     return schema.validate(req)
 }

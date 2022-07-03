@@ -6,7 +6,32 @@ const authRouter = Router();
  * @swagger
  * components:
  *   schemas:
- *     Users:
+ *     User:
+ *       type: object
+ *       required:
+ *         - first_name
+ *         - last_name
+ *         - email
+ *         - password
+ *       properties:
+ *         first_name:
+ *           type: string
+ *           description: user first name
+ *         last_name:
+ *           type: string
+ *           description: user last name
+ *         email:
+ *           type: string
+ *           description: user email
+ *         password:
+ *           type: string
+ *           description: user password
+ *       example:
+ *         first_name: string
+ *         last_name: string
+ *         email: string
+ *         password: string
+ *     Auth:
  *       type: object
  *       required:
  *         - email
@@ -40,11 +65,12 @@ const authRouter = Router();
    *        - application/json
    *        produces:
    *        - application/json
-   *        parameters:
-   *        - in: body
-   *          name: User cerdentials
-   *          schema:
-   *            $ref: '#/definitions/userCerdentials'
+   *        requestBody:   
+   *           required: true
+   *           content:
+   *             application/json:
+   *                schema:
+   *                   $ref: '#/components/schemas/Auth'
    *        responses:
    *            200:
    *                description: everything is ok

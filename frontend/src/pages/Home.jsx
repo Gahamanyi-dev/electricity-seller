@@ -1,8 +1,11 @@
 import React from "react";
 import "../App.css";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
+    <div>
+    <Navbar />
     <div>
       {" "}
       <div class="d-flex flex-row mt-5 justify-content-between w-75 mx-auto">
@@ -18,6 +21,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

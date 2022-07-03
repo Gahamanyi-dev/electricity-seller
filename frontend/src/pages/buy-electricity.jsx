@@ -1,8 +1,11 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
 
 export default function BuyElectricity() {
   return (
-    <div className='container mt-5'>
+    <div>
+      <Navbar />
+      <div className='container mt-5'>
      <div className='col-6'>
      <form>
   <div class="form-group  ">
@@ -20,5 +23,7 @@ export default function BuyElectricity() {
   <label htmlFor="token" className='font-weight-bold'>YOUR TOKEN : </label> <p className='text-primary'>123456</p>
 </div>
     </div>
+    </div>
+   
   )
 }

@@ -6,19 +6,6 @@ export default function Navbar() {
   const location = useLocation();
   return (
     <div>
-      <div class="d-flex flex-row justify-content-between m-5">
-        <div class="p-2 ">
-          {" "}
-          <h1> ElectricitySeller</h1>
-        </div>
-        <div class="p-2 text-right">
-          <p>
-            +250 786 123 987
-            <br />
-            electricitySeller@gmail.com
-          </p>
-        </div>
-      </div>
       <div class="d-flex flex-row bg-primary justify-content-between w-75 mx-auto shadow rounded">
         <div
           class={`py-3 w-100 pointer ${

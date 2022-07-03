@@ -1,7 +1,10 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
 
 export default function CheckElectricity() {
   return (
+    <div>
+    <Navbar />
     <div className='d-flex flex-row mt-5 justify-content-between w-75 mx-auto'>
 
     <div className='p-2 w-100'>
@@ -22,6 +25,7 @@ export default function CheckElectricity() {
 
 </div>
 
+   </div>
    </div>
   )
 }
